@@ -35,7 +35,7 @@ Changes to the root resource folder will require CMake to be ran again as it cop
 
 ## Runtime Oddities
 
-With the SDL installs always make sure you're using either Brew or a framework or you'll receive a warning about not knowing which to use and potentially hit an obnoxious runtime error, this isn't specific to this project, _the code isn't that bad_. I trust brew more, so I would suggest using the brew installs mentioned above and removing the SDL frameworks from /library/frameworks to get around this. Your mileage may vary, but on a clean install I've had no issue with this setup.
+With the SDL installs always make sure you're using either Brew **or** a framework, not both, or you'll receive a warning about not knowing which to use and potentially hit an obnoxious runtime error, this isn't specific to this project, _the code isn't that bad_. I trust brew more, so I would suggest using the brew installs mentioned above and removing the SDL frameworks from /library/frameworks to get around this. Your mileage may vary, but on a clean install I've had no issue with this setup.
 
 ## Notes
 
