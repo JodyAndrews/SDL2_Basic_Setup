@@ -1,4 +1,4 @@
-#SDL2_Basic_Setup for OSX Mojave
+# SDL2_Basic_Setup for OSX Mojave
 
 ### December 2018
 
