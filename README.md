@@ -23,15 +23,20 @@ SDL2 Installs
 - brew install sdl2_mixer
 - brew install sdl2_ttf
 
-## Building
+## Building with CLion
 
-I use CLion although it's not required. You should be able to clone this repo and open the root folder in CLion. This will auto run CMake against the CMakeLists.txt file and create a _cmake_build_debug_ folder, within which will be a _bin_ folder and sample resources. Once you've built the project the executable will be compiled to there.
+I use CLion although it's not required ( see below step instead for CLI ). You should be able to clone this repo and open the root folder in CLion. This will auto run CMake against the CMakeLists.txt file and create a _cmake_build_debug_ folder, within which will be a _bin_ folder and sample resources. Once you've built the project the executable will be compiled to there.
 
 You can either use CLion's debug/run or run the executable in finder. Just use lldb for debugging. There was some kerfuffle about gdb and osx a while back, just go with the flow and use lldb on osx - or let me know why not, genuinely interested.
 
-I'll add a command line build here at some point.
-
 Changes to the root resource folder will require CMake to be ran again as it copies resources to the bin folder, in CLion just use _File -> Reload CMake Project_
+
+## Command Line Build
+
+- mkdir out
+- cd out
+- cmake ../
+- make
 
 ## Runtime Oddities
 
