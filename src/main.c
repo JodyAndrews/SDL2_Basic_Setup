@@ -31,6 +31,9 @@ SDL_Texture *_image;
 SDL_Rect _sampleRect = {.x = 10, .y = 10, .w = 100, .h = 100};
 SDL_bool _inSampleRect = SDL_FALSE;
 
+// Our sample 'music'
+Mix_Music *_music = NULL;
+
 /**
  * Initialise SDL2 and output some useful display info
  */
@@ -147,9 +150,8 @@ void setup_window_icon()
  */
 void play_audio()
 {
-  Mix_Music *music = NULL;
-  music = Mix_LoadMUS("resources/sound.ogg");
-  if (Mix_PlayMusic(music, -1) != 0) {
+  _music = Mix_LoadMUS("resources/sound.ogg");
+  if (Mix_PlayMusic(_music, -1) != 0) {
     printf("[Error] Could not play music : %s", Mix_GetError());
   }
 }
@@ -260,15 +262,22 @@ int main()
   // Run our main game loop
   main_loop();
 
-  // When we exit the loop clean up our samples
+  // When we exit the loop clean up and exit SDL
+  // Audio
   if (Mix_PlayingMusic()) {
     Mix_HaltMusic();
   }
+  Mix_FreeMusic(_music);
+  Mix_CloseAudio();
+  // Images
   SDL_DestroyTexture(_headerText);
   SDL_DestroyTexture(_image);
-
-  // Clean up and exit SDL
+  // TTF
+  TTF_CloseFont(_font);
+  TTF_Quit();
+  // Window
   SDL_DestroyWindow(_window);
+  // SDL
   SDL_Quit();
   exit(0);
 }

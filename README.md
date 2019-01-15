@@ -4,7 +4,7 @@
 
 This repo is very simply a basic SDL2 setup and demo that finds and uses the latest brew installs of SDL2 libraries you'd most likely desire for a game.
 
-Don't expect too much :) All it does is demo initialising SDL2, loading a texture as a background, draw a rectangle, ttf with an external font, mixer and play ogg 'music' (some free walking sound I found), and changes the app icon in the Dock, and has a _game loop_ with fixed timing.
+Don't expect too much :) All it does is demo initialising SDL2, loading a texture as a background, draw a rectangle that we can drag with the mouse, ttf with an external font, mixer and play ogg 'music' (some free walking sound I found), and changes the app icon in the Dock, and has a _game loop_ with fixed timing.
 
 The code is rough but should work. Open an issue if there's any problems or suggestions though and I'll take a look asap. Or just fork and call it your own. Include the CMake output in any issue. It's **very** verbose and welcome!
 
