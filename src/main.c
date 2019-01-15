@@ -27,10 +27,15 @@ SDL_Texture *_headerText;
 // Our sample texture
 SDL_Texture *_image;
 
+// Our sample rectangle that we can drag around the viewport
+SDL_Rect _sampleRect = {.x = 10, .y = 10, .w = 100, .h = 100};
+SDL_bool _inSampleRect = SDL_FALSE;
+
 /**
  * Initialise SDL2 and output some useful display info
  */
-void init_sdl() {
+void init_sdl()
+{
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
     printf("[Error] SDL Init : %s \n", SDL_GetError());
   } else {
@@ -47,7 +52,8 @@ void init_sdl() {
  *
  * This uses SDL_CreateWindowAndRenderer. They can alternatively be created separately. See SDL2 Docs
  */
-void init_window_and_renderer() {
+void init_window_and_renderer()
+{
   if (SDL_CreateWindowAndRenderer(_width, _height, SDL_WINDOW_SHOWN, &_window, &_renderer) != 0) {
     printf("[Error] Creating Window and Renderer: %s\n", SDL_GetError());
     exit(0);
@@ -59,15 +65,17 @@ void init_window_and_renderer() {
 /**
  * Initialise TTF
  */
-void init_ttf() {
+void init_ttf()
+{
   TTF_Init();
 }
 
 /**
  * Initialise mixer
  */
-void init_audio() {
-  if (Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096) != 0) {
+void init_audio()
+{
+  if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) != 0) {
     printf("[Error] Error Initialising Audio : %s\n", SDL_GetError());
   } else {
     printf("Audio Initialised\n");
@@ -77,11 +85,12 @@ void init_audio() {
 /**
  * Setup a sample header text
  */
-void setup_header_text() {
+void setup_header_text()
+{
   // See CMakeLists.txt to see how the resources folder is copied from the root to the bin folder
   _font = TTF_OpenFont("resources/OpenSans-Regular.ttf", 18);
 
-  SDL_Surface *textSurface = TTF_RenderText_Blended(_font, "Press [Escape] to Exit",
+  SDL_Surface *textSurface = TTF_RenderText_Blended(_font, "Mouse Click and Drag Rect. Press [Escape] to Exit",
                                                     white);
   _headerText = SDL_CreateTextureFromSurface(_renderer, textSurface);
 
@@ -99,7 +108,8 @@ void setup_header_text() {
 /**
  * Setup a sample texture
  */
-void setup_texture() {
+void setup_texture()
+{
   _image = NULL;
 
   // Load image at specified path
@@ -120,21 +130,23 @@ void setup_texture() {
 /**
  * Setup a window app icon
  */
-void setup_window_icon() {
+void setup_window_icon()
+{
   SDL_Surface *iconSurface;
-  iconSurface = IMG_Load ("resources/appicon.jpg");
+  iconSurface = IMG_Load("resources/appicon.jpg");
 
   // The icon requires the window pointer NOT the renderer
-  SDL_SetWindowIcon (_window, iconSurface);
+  SDL_SetWindowIcon(_window, iconSurface);
 
   // ...and can now free the appicon surface
-  SDL_FreeSurface (iconSurface);
+  SDL_FreeSurface(iconSurface);
 }
 
 /**
  * Play a sample audio file
  */
-void play_audio() {
+void play_audio()
+{
   Mix_Music *music = NULL;
   music = Mix_LoadMUS("resources/sound.ogg");
   if (Mix_PlayMusic(music, -1) != 0) {
@@ -143,9 +155,35 @@ void play_audio() {
 }
 
 /**
+ * Handles dragging the sample rectangle around. Demonstrates mouse motion events.
+ * @param e
+ */
+void handle_mouse_drag(SDL_Event e)
+{
+  if (e.type == SDL_MOUSEBUTTONDOWN) {
+    // Point where mouse button down occurs
+    SDL_Point p = {.x = e.motion.x, .y = e.motion.y};
+
+    if (SDL_PointInRect(&p, &_sampleRect)) {
+      _inSampleRect = SDL_TRUE;
+    }
+  }
+
+  if (e.type == SDL_MOUSEBUTTONUP && _inSampleRect == SDL_TRUE) {
+    _inSampleRect = false;
+  }
+
+  if (e.type == SDL_MOUSEMOTION && _inSampleRect == SDL_TRUE) {
+    _sampleRect.x += e.motion.xrel;
+    _sampleRect.y += e.motion.yrel;
+  }
+}
+
+/**
  * The main game loop. Continues to loop until Escape or an SDL_Quit event occurs
  */
-void main_loop() {
+void main_loop()
+{
   SDL_bool loop = SDL_TRUE;
   SDL_Event event;
 
@@ -164,6 +202,7 @@ void main_loop() {
             loop = SDL_TRUE;
         }
       }
+      handle_mouse_drag(event);
     }
 
     // Blank out the renderer with all black
@@ -176,15 +215,9 @@ void main_loop() {
     // but for now we'll just use it as a background
     SDL_RenderCopy(_renderer, _image, NULL, NULL);
 
-    // Setup and render a sample rectangle
-    SDL_Rect r;
-    r.x = 10;
-    r.y = 10;
-    r.w = 100;
-    r.h = 100;
-
+    // Render the sample rectangle
     SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 1);
-    SDL_RenderDrawRect(_renderer, &r);
+    SDL_RenderFillRect(_renderer, &_sampleRect);
 
     // Render sample text
     SDL_RenderCopy(_renderer, _headerText, NULL, &_headerTextRect);
