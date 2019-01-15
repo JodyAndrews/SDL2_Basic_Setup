@@ -170,7 +170,7 @@ void handle_mouse_drag(SDL_Event e)
   }
 
   if (e.type == SDL_MOUSEBUTTONUP && _inSampleRect == SDL_TRUE) {
-    _inSampleRect = false;
+    _inSampleRect = SDL_FALSE;
   }
 
   if (e.type == SDL_MOUSEMOTION && _inSampleRect == SDL_TRUE) {
