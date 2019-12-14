@@ -1,5 +1,9 @@
 # SDL2_Basic_Setup for OSX Mojave
 
+### December 2019
+
+This project is still valid, and should build on both Mojava and Catalina but just let me know if not.
+
 ### December 2018
 
 This repo is very simply a basic SDL2 setup and demo that finds and uses the latest brew installs of SDL2 libraries you'd most likely desire for a game.
