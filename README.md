@@ -60,7 +60,7 @@ I would suggest **only** using the brew installs mentioned in the **Installation
 
 ## Notes
 
-The Find CMAKE files are written by others, the only change I've made is to FindSDL2Mixer as it uses the SDL2 lib location for it's search. I've changed this to pick up the location returned from FindSDL2 which means there's a dependency between the two, which also means you can't copy FindSDL2Mixer.cmake to another project and expect it to work. I should probably add a comment to that file.
+The Find CMAKE files are written by others, the only change I've made is to FindSDL2Mixer as it uses the SDL2 lib location for it's search. I've changed this to pick up the location returned from FindSDL2 which means there's a dependency between the two, which also means you can't copy FindSDL2Mixer.cmake to another project and expect it to work by itself. I should probably add a comment to that file.
 
 My understanding of these Find CMAKE files is still slim, so I'll rewrite these for my own use in time and get a better understanding. If you've written your own then please get in touch or send a pull request.
 
