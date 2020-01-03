@@ -2,7 +2,7 @@
 
 ### December 2019
 
-This project is still valid, and should build on both Mojava and Catalina but just let me know if not.
+This project is still valid, and should build on both Mojave and Catalina but just let me know if not.
 
 ### December 2018
 
