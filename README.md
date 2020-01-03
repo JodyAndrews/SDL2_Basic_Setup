@@ -1,8 +1,8 @@
-# SDL2_Basic_Setup for OSX Mojave
+# SDL2 Basic Setup with Demo for OSX Mojave and Catalina
 
 ### December 2019
 
-This project is still valid, and should build and run on both Mojave and Catalina but just let me know if not.
+This project is still valid, and should build and run but just let me know if not.
 
 ### December 2018
 
